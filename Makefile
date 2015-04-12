@@ -2,7 +2,7 @@ AS = /home/simone/opt/cross/bin/i686-elf-as
 LD = /home/simone/opt/cross/bin/i686-elf-ld
 CC = /home/simone/opt/cross/bin/i686-elf-gcc
 AR = /home/simone/opt/cross/bin/i686-elf-ar
-KERNEL_CFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/kernel/include -Isrc/libk/include
+KERNEL_CFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/kernel/include -Isrc/libk/include -Lbin -lc
 LIBK_CFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/libk/include
 KERNEL_SRCP = src/kernel
 LIBK_SRCP = src/libk
@@ -10,7 +10,7 @@ KERNEL_OBJP = bin/obj/kernel
 LIBK_OBJP = bin/obj/libk
 BINP = bin
 KERNEL_OBJS = boot.o kmain.o gdt_loader.o gdt.o 
-LIBK_OBJS = memset.o
+LIBK_OBJS = memset.o memcpy.o memmove.o
 
 all: all-kernel all-libk
 
@@ -41,9 +41,4 @@ clean-kernel:
 
 clean-libk:
 	rm -v $(LIBK_OBJP)/*
-
-git-push:
-	git add -v .
-	git commit
-	git push -u origin master
 
