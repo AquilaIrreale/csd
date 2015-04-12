@@ -14,7 +14,7 @@ LIBK_OBJS = memset.o
 
 all: all-kernel all-libk
 
-.PHONY: all-kernel all-libk
+.PHONY: all all-kernel all-libk clean-all clean-kernel clean-libk
 
 all-kernel: kernel.bin
 
@@ -34,4 +34,16 @@ libk.a: $(LIBK_OBJS)
 %.o: $(LIBK_SRCP)/%.c
 	$(CC) $(LIBK_CFLAGS) -c -o $(LIBK_OBJP)/$@ $<
 
+clean-all: clean-kernel clean-libk
+
+clean-kernel:
+	rm -v $(KERNEL_OBJP)/*
+
+clean-libk:
+	rm -v $(LIBK_OBJP)/*
+
+git-push:
+	git add -v .
+	git commit
+	git push -u origin master
 
