@@ -12,7 +12,7 @@
 .long CHECKSUM
 
 # Temporary stack
-.section .bootstack, "aw", @nobits
+.section .tempstack, "aw", @nobits
 stack_bottom:
 .skip 16384
 stack_top:
