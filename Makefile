@@ -10,17 +10,20 @@ KERNEL_OBJP = bin/obj/kernel
 LIBK_OBJP = bin/obj/libk
 BINP = bin
 KERNEL_OBJS = boot.o kmain.o gdt_loader.o gdt.o 
-LIBK_OBJS = string.o
+LIBK_OBJS = memset.o
 
-all: kernel libk
+all: all-kernel all-libk
 
-.PHONY: kernel libk
+.PHONY: all-kernel all-libk
 
-kernel: $(KERNEL_OBJS)
+all-kernel: kernel.bin
 
-libk: $(LIBK_OBJS)
-	cd $(LIBK_OBJP)
-	$(AR) rvs $(PWD)/$(BINP)/libk.a $(LIBK_OBJS)
+all-libk: libk.a
+
+kernel.bin: $(KERNEL_OBJS)
+
+libk.a: $(LIBK_OBJS)
+	cd $(LIBK_OBJP); $(AR) rvs $(PWD)/$(BINP)/libk.a $(LIBK_OBJS)
 
 %.o: $(KERNEL_SRCP)/%.s
 	$(AS) $< -o $(KERNEL_OBJP)/$@

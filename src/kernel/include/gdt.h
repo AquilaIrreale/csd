@@ -2,6 +2,7 @@
 	#define _GDT_H_
 
 #include <stddef.h>
+#include <stdint.h>
 
 struct gdt_descriptor {
 	uint16_t size;
