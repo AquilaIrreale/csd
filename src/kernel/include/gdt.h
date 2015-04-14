@@ -26,12 +26,12 @@ struct gdt_descriptor {
 typedef struct gdt_descriptor gdt_descriptor_t;
 
 struct gdt_entry {
-	uint16_t base_low;
 	uint16_t limit_low;
-	uint8_t  base_hi;
-	uint8_t  flags_limit_hi;
-	uint8_t  access;
+	uint16_t base_low;
 	uint8_t  base_midhi;
+	uint8_t  access;
+	uint8_t  flags_limit_hi;
+	uint8_t  base_hi;
 } __attribute__((packed));
 
 typedef struct gdt_entry gdt_entry_t;
