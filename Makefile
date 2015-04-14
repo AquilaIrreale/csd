@@ -2,8 +2,8 @@ AS = /home/simone/opt/cross/bin/i686-elf-as
 LD = /home/simone/opt/cross/bin/i686-elf-ld
 CC = /home/simone/opt/cross/bin/i686-elf-gcc
 AR = /home/simone/opt/cross/bin/i686-elf-ar
-KERNEL_CFLAGS = -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -Tlinker.ld -Isrc/kernel/include -Isrc/libk/include -Lbin
-LIBK_CFLAGS = -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/libk/include
+KERNEL_CFLAGS = -g -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -Tlinker.ld -Isrc/kernel/include -Isrc/libk/include -Lbin
+LIBK_CFLAGS = -g -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/libk/include
 KERNEL_SRCP = src/kernel
 LIBK_SRCP = src/libk
 KERNEL_OBJP = bin/obj/kernel
@@ -21,7 +21,7 @@ all-kernel: kernel.bin
 
 all-libk: libk.a
 
-kernel.bin: $(KERNEL_OBJS)
+kernel.bin: $(KERNEL_OBJS) libk.a
 	$(CC) $(KERNEL_CFLAGS) -o $(BINP)/kernel.bin $(KERNEL_OBJP)/*.o $(LIBS)
 
 libk.a: $(LIBK_OBJS)
@@ -35,6 +35,10 @@ libk.a: $(LIBK_OBJS)
 
 %.o: $(LIBK_SRCP)/%.c
 	$(CC) $(LIBK_CFLAGS) -c -o $(LIBK_OBJP)/$@ $<
+
+csd.iso: kernel.bin
+	cp -f $(BINP)/kernel.bin iso/boot/
+	grub-mkrescue -o csd.iso iso/
 
 clean-all: clean-kernel clean-libk
 
