@@ -9,7 +9,7 @@ LIBK_SRCP = src/libk
 KERNEL_OBJP = bin/obj/kernel
 LIBK_OBJP = bin/obj/libk
 BINP = bin
-KERNEL_OBJS = boot.o kmain.o gdt_loader.o gdt.o 
+KERNEL_OBJS = boot.o kmain.o gdt_loader.o gdt.o vga.o
 LIBK_OBJS = memset.o memcpy.o memmove.o memcmp.o memchr.o
 LIBS = -lgcc -lk
 
