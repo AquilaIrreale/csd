@@ -17,6 +17,7 @@ void vga_tm_init();
 void vga_tm_setcursor(uint8_t r, uint8_t c);
 void vga_tm_putc(char c);
 void vga_tm_puts(char *s);
+void vga_tm_putx(uintmax_t n);
 void vga_tm_clear();
 void vga_tm_setfg(uint8_t fg);
 void vga_tm_setbg(uint8_t bg);

@@ -92,6 +92,26 @@ void vga_tm_puts(char *s)
 	}
 }
 
+void vga_tm_putx(uintmax_t n)
+{
+	static const char charset[] = {
+		'0', '1', '2', '3',
+		'4', '5', '6', '7',
+		'8', '9', 'A', 'B',
+		'C', 'D', 'E', 'F'
+	};
+	unsigned char buf[16];
+	size_t i;
+	vga_tm_puts("0x");
+	for (i = 0; n != 0; i++) {
+		buf[i] = n % 16;
+		n /= 16;
+	}
+	for (; i > 0; i--) {
+		vga_tm_putc(charset[buf[i - 1]]);
+	}
+}
+
 void vga_tm_clear()
 {
 	uint8_t c;

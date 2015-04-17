@@ -37,7 +37,7 @@ struct gdt_entry {
 typedef struct gdt_entry gdt_entry_t;
 
 void gdt_set_entry(size_t n, uint32_t base, uint32_t limit, uint8_t access, uint8_t flags);
-void gdt_set_descriptor(gdt_descriptor_t *desc, gdt_entry_t *gdt_p, size_t n_entries);
+void gdt_set_descriptor(gdt_descriptor_t *desc, gdt_entry_t *gdt_p, size_t n_entry);
 void gdt_standard_setup();
 
 #endif

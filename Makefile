@@ -9,7 +9,7 @@ LIBK_SRCP = src/libk
 KERNEL_OBJP = bin/obj/kernel
 LIBK_OBJP = bin/obj/libk
 BINP = bin
-KERNEL_OBJS = boot.o kmain.o gdt_loader.o gdt.o vga.o
+KERNEL_OBJS = boot.o kmain.o gdt_asm.o gdt.o idt_asm.o idt.o isr_asm.o isr.o vga.o
 LIBK_OBJS = memset.o memcpy.o memmove.o memcmp.o memchr.o strcpy.o strncpy.o strcat.o strncat.o
 LIBS = -lgcc -lk
 
@@ -39,6 +39,9 @@ libk.a: $(LIBK_OBJS)
 csd.iso: kernel.bin
 	cp -f $(BINP)/kernel.bin iso/boot/
 	grub-mkrescue -o csd.iso iso/
+
+disassembly: kernel.bin
+	objdump -d $(BINP)/kernel.bin > disassembly
 
 clean-all: clean-kernel clean-libk
 

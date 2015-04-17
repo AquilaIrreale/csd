@@ -2,7 +2,7 @@
 #include <string.h>
 
 #include <gdt.h>
-#include <gdt_loader.h>
+#include <gdt_asm.h>
 
 gdt_entry_t gdt[16];
 gdt_descriptor_t desc;
@@ -18,13 +18,11 @@ void gdt_set_entry(size_t n, uint32_t base, uint32_t limit, uint8_t access, uint
 	gdt[n].flags_limit_hi |= (flags & 0x0C) << 4;
 
 	gdt[n].access = (access & 0xFE) | GDT_PRESENT | 0x10;
-
-
 }
 
-void gdt_set_descriptor(gdt_descriptor_t *desc, *gdt_entry_t p, size_t n_entries)
+void gdt_set_descriptor(gdt_descriptor_t *desc, gdt_entry_t *p, size_t n_entry)
 {
-	desc->size = n_entries * sizeof(gdt_entry_t) -1;
+	desc->size = n_entry * sizeof(gdt_entry_t) -1;
 	desc->offset = (uint32_t) p;
 }
 
