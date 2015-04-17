@@ -41,15 +41,28 @@ void vga_tm_putc(char c)
 {
 	switch (c) {
 		case '\0': return;
+
 		case '\n': {
 			curs_r++;
 			curs_c = 0;
 		} break;
+
 		case '\t': {
 			do {
 				curs_c++;
 			} while (curs_c % TM_TAB_WIDTH != 0);
 		} break;
+
+		case '\b': {
+			if (curs_c > 0) {
+				curs_c--;
+			}
+		} break;
+
+		case '\r': {
+			curs_c = 0;
+		} break;
+
 		default: {
 			tm_framebuffer[curs_r * TM_FB_W + curs_c].value = c;
 			curs_c++;
