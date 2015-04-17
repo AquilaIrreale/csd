@@ -22,7 +22,7 @@ void gdt_set_entry(size_t n, uint32_t base, uint32_t limit, uint8_t access, uint
 
 }
 
-void gdt_set_descriptor(gdt_descriptor_t *desc, gdt_entry_t p[], size_t n_entries)
+void gdt_set_descriptor(gdt_descriptor_t *desc, *gdt_entry_t p, size_t n_entries)
 {
 	desc->size = n_entries * sizeof(gdt_entry_t) -1;
 	desc->offset = (uint32_t) p;
