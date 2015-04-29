@@ -26,7 +26,7 @@ void gdt_set_descriptor(gdt_descriptor_t *desc, gdt_entry_t *p, size_t n_entries
 	desc->offset = (uint32_t) p;
 }
 
-void gdt_standard_setup()
+void gdt_default_setup()
 {
 	memset(gdt, 0, sizeof gdt);
 

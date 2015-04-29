@@ -23,6 +23,7 @@ typedef struct idt_gate idt_gate_t;
 
 void idt_set_gate(size_t n, void *isr, uint16_t selector, uint8_t type, uint8_t attributes);
 void idt_set_descriptor(idt_descriptor_t *desc, idt_gate_t *idt, size_t n_gates);
+void idt_default_setup();
 
 #endif /* _IDT_H_ */
 

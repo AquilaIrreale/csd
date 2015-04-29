@@ -65,6 +65,7 @@ void vga_tm_putc(char c)
 
 		default: {
 			tm_framebuffer[curs_r * TM_FB_W + curs_c].value = c;
+			tm_framebuffer[curs_r * TM_FB_W + curs_c].color = color;
 			curs_c++;
 		} break;
 	}
@@ -103,12 +104,33 @@ void vga_tm_putx(uintmax_t n)
 	unsigned char buf[16];
 	size_t i;
 	vga_tm_puts("0x");
+	if (n == 0) {
+		vga_tm_putc('0');
+		return;
+	}
 	for (i = 0; n != 0; i++) {
 		buf[i] = n % 16;
 		n /= 16;
 	}
 	for (; i > 0; i--) {
 		vga_tm_putc(charset[buf[i - 1]]);
+	}
+}
+
+void vga_tm_putd(uintmax_t n)
+{
+	unsigned char buf[32];
+	size_t i;
+	if (n == 0) {
+		vga_tm_putc('0');
+		return;
+	}
+	for (i = 0; n != 0; i++) {
+		buf[i] = n % 10;
+		n /= 10;
+	}
+	for (; i > 0; i--) {
+		vga_tm_putc('0' + buf[i - 1]);
 	}
 }
 
@@ -119,7 +141,7 @@ void vga_tm_clear()
 	for (r = 0; r < TM_FB_H; r++) {
 		for (c = 0; c < TM_FB_W; c++) {
 			tm_framebuffer[r * TM_FB_W + c].value = ' ';
-			tm_framebuffer[r * TM_FB_W + c].color = 0x00;
+			tm_framebuffer[r * TM_FB_W + c].color = color;
 		}
 	}
 }

@@ -1,6 +1,9 @@
 #ifndef _ISR_ASM_H_
 	#define _ISR_ASM_H_
 
+/* Test */
+void isr0test();
+
 void isr0();
 void isr1();
 void isr2();

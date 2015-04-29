@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include <idt.h>
+#include <idt_asm.h>
 #include <isr_asm.h>
 
 idt_gate_t idt[256];
@@ -28,6 +29,9 @@ void idt_set_descriptor(idt_descriptor_t *desc, idt_gate_t *idt, size_t n_gates)
 void idt_default_setup()
 {
 	memset(idt, 0, sizeof idt);
+	idt_set_gate(0, isr0test, 0x08, 0xE, 0x8);
+	idt_set_descriptor(&desc, idt, 1);
+	load_idt(&desc);
 }
 
 
