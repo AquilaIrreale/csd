@@ -12,6 +12,8 @@ void *memchr(const void *ptr, int value, size_t num);
 
 /* String operations */
 size_t strlen(const char *string);
+size_t strcspn(const char *str1, const char *str2);
+
 char *strcat(char *destination, const char *source);
 char *strncat(char *destination, const char *source, size_t num);
 char *strcpy(char *destination, const char *source);
