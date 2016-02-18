@@ -1,7 +1,7 @@
-AS = /home/simone/opt/cross/bin/i686-elf-as
-LD = /home/simone/opt/cross/bin/i686-elf-ld
-CC = /home/simone/opt/cross/bin/i686-elf-gcc
-AR = /home/simone/opt/cross/bin/i686-elf-ar
+AS = i386-elf-as
+LD = i386-elf-ld
+CC = i386-elf-gcc
+AR = i386-elf-ar
 KERNEL_CFLAGS = -gdwarf-2 -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -Tlinker.ld -Isrc/kernel/include -Isrc/libk/include -Lbin
 LIBK_CFLAGS = -gdwarf-2 -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/libk/include
 KERNEL_SRCP = src/kernel
