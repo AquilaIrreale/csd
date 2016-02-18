@@ -38,7 +38,7 @@ libk.a: $(LIBK_OBJS)
 
 csd.iso: kernel.bin
 	cp -f $(BINP)/kernel.bin iso/boot/
-	grub-mkrescue -o csd.iso iso/
+	grub-mkrescue --directory=/usr/lib/grub/i386-pc --output=csd.iso iso/
 
 disassembly: kernel.bin
 	objdump -d $(BINP)/kernel.bin > disassembly
