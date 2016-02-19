@@ -1,4 +1,5 @@
 #include <isr.h>
+#include <vga.h>
 #include <bsod.h>
 
 #include <string.h>
@@ -126,6 +127,12 @@ void isr_setup()
 
 void isr_handler_manager(uint32_t isr, uint32_t err)
 {
+	// DEBUG
+	vga_tm_puts("Errno: ");
+	vga_tm_putx(err);
+	vga_tm_putc('\n');
+	// DEBUG
+	
 	/* Check for spurious IRQs (7, 15 (2)) */
 	uint8_t irq;
 	if (isr >= 32 && isr < 48) {
@@ -145,12 +152,6 @@ void isr_handler_manager(uint32_t isr, uint32_t err)
 			return;
 		}
 	}
-
-	// DEBUG
-	vga_tm_puts("Got interrupt ");
-	vga_tm_putx(isr);
-	vga_tm_putc('\n');
-	// DEBUG
 
 	/* Run handler */
 	if (isr_handler_table[isr]) {

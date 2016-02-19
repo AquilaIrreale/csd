@@ -277,15 +277,6 @@ INT_NOERR 253
 INT_NOERR 254
 INT_NOERR 255
 
-.global isr0test
-isr0test:
-	pushl $0
-	call isr0testc
-	addl $4, %esp
-	iret
-
-isr0testc:
-	ret
 
 isr_common:
     /* Dump registers */

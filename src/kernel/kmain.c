@@ -23,6 +23,6 @@ void kmain()
 	vga_tm_puts("Setting up PIC & ISRs... ");
 	isr_setup();
 	vga_tm_puts("DONE\n");
-	isr_register_handler(0x80, isrh);
-	asm volatile ("int $0x80");
+	isr_register_handler(0x40, isrh);
+	asm volatile ("int $0x40");
 }
