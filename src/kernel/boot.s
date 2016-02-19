@@ -33,7 +33,7 @@ _start:
 
 	# Dead code
 	# Should never get to be executed
-	# Still it is here for safety reasons
+	# Still it's here for safety reasons
 	cli
 	hlt
 .Lhang:

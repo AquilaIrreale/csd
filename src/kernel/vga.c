@@ -22,7 +22,9 @@ void vga_tm_init()
 {
 	curs_r = 0;
 	curs_c = 0;
-	color  = 0;
+	
+	vga_tm_setfg(VGA_LIGHT_GREY);
+	vga_tm_setbg(VGA_BLACK);
 
 	/* Init routines */
 }

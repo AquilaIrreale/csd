@@ -1,5 +1,5 @@
-#ifndef _GDT_LOADER_H_
-	#define _GDT_LOADER_H_
+#ifndef _GDT_ASM_H_
+	#define _GDT_ASM_H_
 
 #include "gdt.h"
 

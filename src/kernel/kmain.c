@@ -6,15 +6,17 @@
 /* Entry point for kernel */
 void kmain()
 {
+	vga_tm_init();
+	vga_tm_puts("Setting up GDT... ");
 	gdt_default_setup();
-	vga_tm_puts("Setting up GDT... DONE\n");
+	vga_tm_puts("DONE\n");
 	vga_tm_puts("Setting up IDT... ");
 	idt_default_setup();
 	vga_tm_puts("DONE\n");
 	vga_tm_putc('\n');
 	vga_tm_puts("* EXCEPTION TEST *\nInducing a division by zero\n\n");
 	int i;
-	for (i = 9; i > -1; i--) {
+	for (i = 9; i > 0; i--) {
 		vga_tm_puts("2520 / ");
 		vga_tm_putd(i);
 		vga_tm_puts(" = ");
