@@ -1,7 +1,14 @@
 #include <vga.h>
 #include <gdt.h>
 #include <idt.h>
+#include <isr.h>
 
+void isrh()
+{
+	vga_tm_setfg(VGA_GREEN);
+	vga_tm_puts("SYSCALL (INT 0x80) received");
+	vga_tm_setfg(VGA_LIGHT_GREY);
+}
 
 /* Entry point for kernel */
 void kmain()
@@ -13,15 +20,9 @@ void kmain()
 	vga_tm_puts("Setting up IDT... ");
 	idt_default_setup();
 	vga_tm_puts("DONE\n");
-	vga_tm_putc('\n');
-	vga_tm_puts("* EXCEPTION TEST *\nInducing a division by zero\n\n");
-	int i;
-	for (i = 9; i > 0; i--) {
-		vga_tm_puts("2520 / ");
-		vga_tm_putd(i);
-		vga_tm_puts(" = ");
-		int res = 2520 / i;
-		vga_tm_putd(res);
-		vga_tm_putc('\n');
-	}
+	vga_tm_puts("Setting up PIC & ISRs... ");
+	isr_setup();
+	vga_tm_puts("DONE\n");
+	isr_register_handler(0x80, isrh);
+	asm volatile ("int $0x80");
 }

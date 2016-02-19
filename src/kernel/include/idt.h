@@ -8,7 +8,6 @@ struct idt_descriptor {
 	uint16_t size;
 	uint32_t offset;
 } __attribute__((packed));
-
 typedef struct idt_descriptor idt_descriptor_t;
 
 struct idt_gate {
@@ -18,8 +17,9 @@ struct idt_gate {
 	uint8_t  attributes;
 	uint16_t offset_hi;
 } __attribute__((packed));
-
 typedef struct idt_gate idt_gate_t;
+
+typedef void (*isr_stub_t)();
 
 void idt_set_gate(size_t n, void *isr, uint16_t selector, uint8_t type, uint8_t attributes);
 void idt_set_descriptor(idt_descriptor_t *desc, idt_gate_t *idt, size_t n_gates);

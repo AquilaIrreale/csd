@@ -48,4 +48,9 @@ static inline void outl(uint16_t port, uint32_t value)
 				  :: [VALUE]"a"(value), [PORT]"Nd"(port));
 }
 
+static inline void iowait()
+{
+	asm volatile ("outb %%al, $0x80" :: "a"(0));
+}
+
 #endif
