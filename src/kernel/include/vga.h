@@ -40,4 +40,8 @@ void vga_tm_clear();
 void vga_tm_setfg(uint8_t fg);
 void vga_tm_setbg(uint8_t bg);
 
+// DEBUG
+void vga_tm_scroll();
+// END OF DEBUG
+
 #endif

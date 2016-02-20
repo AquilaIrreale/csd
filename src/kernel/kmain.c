@@ -45,10 +45,12 @@ void kmain()
 	vga_tm_puts("Setting up PIC & ISRs... ");
 	isr_setup();
 	vga_tm_puts("DONE\n");
-	isr_register_handler(0x00, divh);
-	isr_register_handler(0x80, isrh);
-	isr_register_handler(IRQ0, rtch);
-	asm volatile ("movl $3, %eax; int $0x80");
+	//isr_register_handler(0x00, divh);
+	//isr_register_handler(0x80, isrh);
+	//isr_register_handler(IRQ0, rtch);
+	//asm volatile ("movl $3, %eax; int $0x80");
+	//vga_tm_puts("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLol\n");
+	/*
 	cli();
 	outb(0x70, 0x8B);
 	uint8_t prev = inb(0x71);
@@ -60,6 +62,7 @@ void kmain()
 	outb(0x70, 0x8A);
 	outb(0x71, (prev & 0xF0) | rate);
 	//pic_clearall();
-	sti();
+	//sti();
+	*/
 	hang();
 }

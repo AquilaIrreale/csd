@@ -3,6 +3,10 @@
 #include <iobus.h>
 #include <vga.h>
 
+// DEBUG
+#define static
+//END OF DEBUG
+
 struct vga_tm_char {
 	uint8_t value;
 	uint8_t color;
@@ -75,15 +79,13 @@ void vga_tm_putc(char c)
 	if (curs_c >= TM_FB_W) {
 		curs_c = 0;
 		curs_r++;
-	} else {
-		vga_tm_update_cursor();
-		return;
 	}
 
 	if (curs_r >= TM_FB_H) {
 		curs_r = TM_FB_H -1;
 		vga_tm_scroll();
 	}
+	
 	vga_tm_update_cursor();
 }
 
