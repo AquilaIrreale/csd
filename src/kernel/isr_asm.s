@@ -297,18 +297,20 @@ isr_common:
 
     /* 
      * Load isr number, error code, and
-     * a pointer to register dump
+     * pointers to register dumps
      */
     movl %esp, %edi
+    leal 60(%esp), %esi
     movl 52(%esp), %eax
     movl 56(%esp), %edx
 
     /* Call the interrupt handler manager */
     pushl %edi
+    pushl %esi
     pushl %edx
     pushl %eax
     call isr_handler_manager
-    addl $12, %esp
+    addl $16, %esp
 
     /* Restore segments */
     popl %gs

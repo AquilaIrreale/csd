@@ -36,6 +36,9 @@ _start:
 	# Still it's here for safety reasons
 	cli
 	hlt
-.Lhang:
+
+.global hang
+.type hang, @function
+hang:
 	nop
-	jmp .Lhang
+	jmp hang

@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+void hang();
+
 static inline uint8_t inb(uint16_t port)
 {
 	uint8_t value;
@@ -51,6 +53,16 @@ static inline void outl(uint16_t port, uint32_t value)
 static inline void iowait()
 {
 	asm volatile ("outb %%al, $0x80" :: "a"(0));
+}
+
+static inline void cli()
+{
+	asm volatile ("cli");
+}
+
+static inline void sti()
+{
+	asm volatile ("sti");
 }
 
 #endif

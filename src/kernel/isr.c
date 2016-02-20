@@ -125,14 +125,8 @@ void isr_setup()
 	memset(isr_handler_table, 0, sizeof(isr_handler_t));
 }
 
-void isr_handler_manager(uint32_t isr, uint32_t err, isr_registers_t *regs)
+void isr_handler_manager(uint32_t isr, uint32_t err, isr_eregs_t *eregs, isr_regs_t *regs)
 {
-	// DEBUG
-	vga_tm_puts("Errno: ");
-	vga_tm_putx(err);
-	vga_tm_putc('\n');
-	// DEBUG
-	
 	/* Check for spurious IRQs (7, 15 (2)) */
 	uint8_t irq;
 	if (isr >= 32 && isr < 48) {
@@ -155,9 +149,11 @@ void isr_handler_manager(uint32_t isr, uint32_t err, isr_registers_t *regs)
 
 	/* Run handler */
 	if (isr_handler_table[isr]) {
-		isr_handler_table[isr](err, regs);
+		isr_handler_table[isr](err, eregs, regs);
 	} else {
-		bsod("INTERRUPT HANDLER MANAGER: FATAL ERROR", "Missing handler");
+		//bsod_isr(isr);
+		vga_tm_putx(isr);
+		vga_tm_putc('\n');
 	}
 	
 	/* Send EOI */
