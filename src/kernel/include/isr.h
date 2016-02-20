@@ -30,7 +30,24 @@
 #define OCW3_IRR        0x0A
 #define OCW3_ISR        0x0B
 
-typedef void (*isr_handler_t)(void); /* <--TODO arglist */
+struct isr_registers {
+	uint32_t  gs;
+	uint32_t  es;
+	uint32_t  fs;
+	uint32_t  ss;
+	uint32_t  ds;
+	uint32_t edi;
+	uint32_t esi;
+	uint32_t ebp;
+	uint32_t esp;
+	uint32_t ebx;
+	uint32_t edx;
+	uint32_t ecx;
+	uint32_t eax;
+} __attribute__((packed));
+typedef struct isr_registers isr_registers_t;
+
+typedef void (*isr_handler_t)(uint32_t err, isr_registers_t *regs);
 
 void pic_default_seup();
 void pic_remap(uint8_t base);

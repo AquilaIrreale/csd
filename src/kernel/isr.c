@@ -125,7 +125,7 @@ void isr_setup()
 	memset(isr_handler_table, 0, sizeof(isr_handler_t));
 }
 
-void isr_handler_manager(uint32_t isr, uint32_t err)
+void isr_handler_manager(uint32_t isr, uint32_t err, isr_registers_t *regs)
 {
 	// DEBUG
 	vga_tm_puts("Errno: ");
@@ -155,7 +155,7 @@ void isr_handler_manager(uint32_t isr, uint32_t err)
 
 	/* Run handler */
 	if (isr_handler_table[isr]) {
-		isr_handler_table[isr]();
+		isr_handler_table[isr](err, regs);
 	} else {
 		bsod("INTERRUPT HANDLER MANAGER: FATAL ERROR", "Missing handler");
 	}
