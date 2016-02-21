@@ -20,7 +20,7 @@ load_gdt:
 	# information about interrupts
 	pushfl
 	popl %edx
-	andl $0x200, %edx	# 0x200 is interrupts flag
+	andl $0x200, %edx	# 0x200 is IF
 
 	# Disable interrupts
 	cli

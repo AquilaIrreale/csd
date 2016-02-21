@@ -121,7 +121,7 @@ uint16_t pic_get_isr()
 void isr_setup()
 {
 	pic_remap(0x20);
-	pic_clearall();
+	pic_setall();
 	memset(isr_handler_table, 0, sizeof(isr_handler_t));
 }
 

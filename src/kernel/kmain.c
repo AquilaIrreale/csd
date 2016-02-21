@@ -17,12 +17,10 @@ void isrh(uint32_t err, isr_eregs_t *eregs, isr_regs_t *regs)
 	vga_tm_setfg(VGA_LIGHT_GREY);
 }
 
-char ticktock[2][7] = {"Tick!\n", "Tock!\n"};
-uint8_t ttc = 0;
-void rtch(uint32_t err, isr_eregs_t *eregs, isr_regs_t *regs)
+uint32_t cycles = 0;
+void pith(uint32_t err, isr_eregs_t *eregs, isr_regs_t *regs)
 {
-	vga_tm_puts(ticktock[ttc]);
-	ttc = ttc ? 0 : 1;
+	cycles++;
 }
 
 void divh(uint32_t err, isr_eregs_t *eregs, isr_regs_t *regs)
@@ -42,27 +40,31 @@ void kmain()
 	vga_tm_puts("Setting up IDT... ");
 	idt_default_setup();
 	vga_tm_puts("DONE\n");
-	vga_tm_puts("Setting up PIC & ISRs... ");
+	vga_tm_puts("Setting up PIC... ");
 	isr_setup();
 	vga_tm_puts("DONE\n");
-	//isr_register_handler(0x00, divh);
-	//isr_register_handler(0x80, isrh);
-	//isr_register_handler(IRQ0, rtch);
-	//asm volatile ("movl $3, %eax; int $0x80");
-	//vga_tm_puts("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLol\n");
-	/*
-	cli();
-	outb(0x70, 0x8B);
-	uint8_t prev = inb(0x71);
-	outb(0x70, 0x8B);
-	outb(0x71, prev | 0x40);
-	uint8_t rate = 15;
-	outb(0x70, 0x8A);
-	prev = inb(0x71);
-	outb(0x70, 0x8A);
-	outb(0x71, (prev & 0xF0) | rate);
-	//pic_clearall();
-	//sti();
-	*/
+	vga_tm_puts("ISR handler manager online\n");
+	isr_register_handler(0x00, divh);
+	isr_register_handler(0x80, isrh);
+	isr_register_handler(IRQ0, pith);
+	vga_tm_puts("Interrupt handlers ready\n");
+	pic_clearmask(0);
+	vga_tm_puts("PIT channel 0 unmasked\n");
+	outb(0x61, 0);
+	vga_tm_puts("PC speaker reset\n");
+	sti();
+	vga_tm_puts("IRQs enabled\n\n");
+	for (;;) {
+		vga_tm_puts("\rCounting PIT cycles: ");
+		vga_tm_putd(cycles);
+		if (cycles % 25 == 0) {
+			outb(0x61, 0xFD);
+		} else if (cycles % 25 == 5) {
+			outb(0x61, 0);
+		}
+		hlt();
+	}
 	hang();
 }
+
+

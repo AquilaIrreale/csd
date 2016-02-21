@@ -65,4 +65,9 @@ static inline void sti()
 	asm volatile ("sti");
 }
 
+static inline void hlt()
+{
+	asm volatile ("hlt");
+}
+
 #endif
