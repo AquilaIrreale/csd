@@ -1,7 +1,7 @@
-AS = i386-elf-as
-LD = i386-elf-ld
-CC = i386-elf-gcc
-AR = i386-elf-ar
+AS = i686-elf-as
+LD = i686-elf-ld
+CC = i686-elf-gcc
+AR = i686-elf-ar
 KERNEL_CFLAGS = -gdwarf-2 -std=gnu99 -ffreestanding -nostdlib -Wall -Wextra -Tlinker.ld -Isrc/kernel/include -Isrc/libk/include -Lbin
 LIBK_CFLAGS = -gdwarf-2 -std=gnu99 -ffreestanding -Wall -Wextra -Isrc/libk/include
 KERNEL_SRCP = src/kernel
@@ -13,9 +13,9 @@ KERNEL_OBJS = boot.o kmain.o gdt_asm.o gdt.o idt_asm.o idt.o isr_asm.o isr_stubs
 LIBK_OBJS = memset.o memcpy.o memmove.o memcmp.o memchr.o strcpy.o strncpy.o strcat.o strncat.o strlen.o strcspn.o
 LIBS = -lgcc -lk
 
-all: all-kernel all-libk
-
 .PHONY: all all-kernel all-libk clean-all clean-kernel clean-libk
+
+all: all-kernel all-libk
 
 all-kernel: kernel.bin
 
