@@ -43,7 +43,7 @@ csd.iso: kernel.bin
 disassembly: kernel.bin
 	objdump -d $(BINP)/kernel.bin > disassembly
 
-clean-all: clean-kernel clean-libk
+clean: clean-kernel clean-libk
 
 clean-kernel:
 	rm -v $(KERNEL_OBJP)/*
